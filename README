@@ -1,9 +1,28 @@
-PBKDF2 for Python because bcrypt is overkill
 
-Unlike bcrypt this is easy to understand, secure enough given a sufficently
-random salt and implemented on top of the stdlib in about 20 lines of code.
-Also easy to understand and analyze.
+Install
+---
 
-Tests included.
+copy `lib/__init__.py`
 
-Happy hashing.
+Usage
+---
+
+```
+
+# register user
+
+from lib import key
+
+salt, hash = key(password)
+user.salt = salt
+user.hash = hash
+
+```
+
+```
+# login user
+
+user = User.find(username)
+
+auntheticated = key(password, user.salt)
+```
