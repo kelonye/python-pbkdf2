@@ -47,7 +47,7 @@ from struct import Struct
 from operator import xor
 from itertools import izip, starmap
 
-KEYLEN = 24
+KEYLEN = 128
 ITERATIONS = 1000
 
 _pack_int = Struct('>I').pack
