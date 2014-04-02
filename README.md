@@ -13,9 +13,8 @@ Usage
 
 from lib import key
 
-salt, hash = key(password)
-user.salt = salt
-user.hash = hash
+user.salt, user.hash = key(password)
+
 
 ```
 
@@ -24,5 +23,7 @@ user.hash = hash
 
 user = User.find(username)
 
-auntheticated = key(password, user.salt)
+salt, hash = key(password, user.salt)
+auntheticated = hash == user.hash
+
 ```
