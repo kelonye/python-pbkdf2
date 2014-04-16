@@ -86,5 +86,5 @@ def pbkdf2_bin(data, salt, iterations=ITERATIONS, keylen=24, hashfunc=None):
     return ''.join(map(chr, buf))[:keylen]
 
 
-def salt():
-    return os.urandom(KEYLEN).encode('base_64').replace('/', '+').lower().strip()
+def salt(keylen=KEYLEN):
+    return os.urandom(keylen).encode('base_64').replace('/', '+').lower().strip()
