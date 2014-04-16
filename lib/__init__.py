@@ -53,10 +53,10 @@ ITERATIONS = 1000
 _pack_int = Struct('>I').pack
 
 
-def key(password, salt=None, iterations=ITERATIONS, keylen=KEYLEN):
-    if not salt:
-        salt = os.urandom(KEYLEN).encode('base_64')
-    return salt, pbkdf2_hex(password, salt, iterations, keylen)
+def key(password, _salt=None, iterations=ITERATIONS, keylen=KEYLEN):
+    if not _salt:
+        _salt = salt()
+    return _salt, pbkdf2_hex(password, _salt, iterations, keylen)
 
 
 def pbkdf2_hex(data, salt, iterations=ITERATIONS, keylen=KEYLEN, hashfunc=None):
@@ -84,3 +84,7 @@ def pbkdf2_bin(data, salt, iterations=ITERATIONS, keylen=24, hashfunc=None):
             rv = starmap(xor, izip(rv, u))
         buf.extend(rv)
     return ''.join(map(chr, buf))[:keylen]
+
+
+def salt():
+    return os.urandom(KEYLEN).encode('base_64').replace('/', '+').lower().strip()
